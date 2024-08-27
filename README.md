@@ -4,6 +4,8 @@ MagicMirror² Module that displays the meal plan for the week from grocy on your
 ![image](https://github.com/user-attachments/assets/b6bd66ed-61eb-443a-9b00-46d3b0b274e7)
 
 
+THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, and i'm still learning the ropes
+
 ## Dependencies
 
 - instance of MagicMirror²
