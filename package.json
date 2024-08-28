@@ -1,24 +1,23 @@
 {
-  "name": "mmm-coupledays",
+  "name": "mmm-grocy",
   "version": "1.0.0",
-  "description": "MagicMirror² module that displays the number of days, weeks, months, and years since a specified date, serving as a romantic reminder for couples.",
+  "description": "MagicMirror² module that displays your meal plan from grocy for the week.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wiesty/MMM-CoupleDays"
+    "url": "https://github.com/wiesty/MMM-Grocy"
   },
   "keywords": [
-    "magicmirror",
-    "reminder"
+    "magicmirror"
   ],
   "author": {
-    "name": "wiesty",
-    "url": "https://github.com/wiesty"
+    "name": "ooohfascinagin",
+    "url": "https://github.com/ooohfascinating"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wiesty/MMM-CoupleDays/issues"
+    "url": "https://github.com/ooohfascinating/MMM-Grocy/issues"
   },
-  "homepage": "https://github.com/wiesty/MMM-CoupleDays#readme",
+  "homepage": "https://github.com/ooohfascinating/MMM-Grocy#readme",
   "dependencies": {
     "moment": "^2.29.4"
   },
