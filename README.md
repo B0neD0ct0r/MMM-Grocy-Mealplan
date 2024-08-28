@@ -36,5 +36,13 @@ THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, an
   }
 },
 ```
+## Updating
+
+To update the module to the latest version, use your terminal to go to your MMM-Grocy module folder and type the following command:
+
+cd MMM-Grocy
+git pull
+npm install
+
 
 
