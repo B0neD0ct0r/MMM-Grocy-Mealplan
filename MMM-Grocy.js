@@ -1,13 +1,14 @@
 Module.register("MMM-Grocy", {
   defaults: {
-    apiLocation: ""
+    apiLocation: "",
+    textColor:"red"
   },
 
   async start () {
   
     this.wrapper = document.createElement("div");
     this.wrapper.className = "thin medium grey pre-line";
-    this.wrapper.style.color = "red";
+    this.wrapper.style.color = this.config.textColor;
     this.recipie_list = "";
     var txtContainer = document.createElement("div");
     txtContainer.className = "grocy-content";
@@ -40,7 +41,7 @@ Module.register("MMM-Grocy", {
   async getGrocyMealPlan () {
    
 		let recipieList = [];
-    var days = ['Sun','Mon','Tues','Wed','Thrus','Fri','Sat'];
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    
 
     let mealPlan = await fetch(`${this.config.apiLocation}/objects/meal_plan`, {
