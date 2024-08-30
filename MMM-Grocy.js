@@ -58,7 +58,7 @@ Module.register("MMM-Grocy", {
 
       
       
-      var endof7Days = new Date();
+      var endof7Days = new Date(Date.now());
       endof7Days.setDate(pastSunday.getDate() + 7);
      
 
@@ -93,7 +93,7 @@ Module.register("MMM-Grocy", {
   },
 
   async getThePastSunday(){
-    var today = new Date();
+    var today = new Date(Date.now());
     
     today.setDate(today.getDate() - (today.getDay() + 6) % 7);
 
