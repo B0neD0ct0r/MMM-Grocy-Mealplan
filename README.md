@@ -16,7 +16,7 @@ THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, an
 
    ```bash
    cd ~/MagicMirror/modules
-   git clone https://gitlab.com/ooohfascinating/MMM-Grocy
+   git clone https://github.com/ooohfascinating/MMM-Grocy
    cd MMM-Grocy
    npm install
    ```
@@ -31,7 +31,7 @@ THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, an
   module: "MMM-Grocy",
   position: "top_left",
   config: {
-    apiLocation:"https://grocy.example.com/api",
+    apiLocation:"https://grocy.example.com/api"
     textColor:"red"
   }
 },
@@ -40,9 +40,11 @@ THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, an
 
 To update the module to the latest version, use your terminal to go to your MMM-Grocy module folder and type the following command:
 
+```bash
 cd MMM-Grocy
 git pull
 npm install
+```
 
 
 
