@@ -1,4 +1,16 @@
-.MMM-Grocy .content{
-  font-size:15.5px;
+.MMM-Grocy .pre-line .grocy-content {
+  font-size: 15.5;
   text-align: left;
+  white-space: pre-line; /* Preserves whitespace and line breaks */
+}
+
+.MMM-Grocy .pre-line .grocy-content .day-header {
+  font-weight: bold;
+  font-size: 15.5;
+}
+
+.MMM-Grocy .pre-line .grocy-content .recipe {
+  margin-left: 20px; /* Adjust this value to control indentation */
+  display: block;
+  font-size: 15.5;
 }
