@@ -1,6 +1,8 @@
 Module.register("MMM-Grocy", {
   defaults: {
     apiLocation: "",
+    apiKey: "",
+    headerName: "Grocy Meal Plan",
     textColor:"red"
   },
 
@@ -9,7 +11,7 @@ Module.register("MMM-Grocy", {
     this.wrapper = document.createElement("div");
     this.wrapper.className = "thin medium grey pre-line";
     this.wrapper.style.color = this.config.textColor;
-    this.recipie_list = "";
+    this.recipe_list = "";
     var txtContainer = document.createElement("div");
     txtContainer.className = "grocy-content";
     
@@ -34,18 +36,22 @@ Module.register("MMM-Grocy", {
   },
 
   getHeader () {
-    return `Grocy Meal Plan`;
+    return `${this.config.headerName}`;
   },
 
 
   async getGrocyMealPlan () {
    
-		let recipieList = [];
+		let recipeList = [];
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
    
 
     let mealPlan = await fetch(`${this.config.apiLocation}/objects/meal_plan`, {
-          
+        method: 'GET',
+        headers: {
+            'GROCY-API-KEY': `${this.config.apiKey}`,
+            'Content-Type': 'application/json'
+        }
     }).then( r => r.json() );
 
    
@@ -63,17 +69,17 @@ Module.register("MMM-Grocy", {
      
 
       if (day >= pastSunday && day <= endof7Days){
-        recipieList.push(await this.getRecepieInfo(mealPlan[i].recipe_id, days[day.getDay()], mealPlan[i].day));
+        recipeList.push(await this.getRecipeInfo(mealPlan[i].recipe_id, days[day.getDay()], mealPlan[i].day));
       }
 
      
     }
 
   
-    //we need to spoool through recipie list after sort to return what we want
+    //we need to spool through recipe list after sort to return what we want
 
 
-    recipieList.sort(function (a,b) {
+    recipeList.sort(function (a,b) {
       if (a[0] > b[0]) return  1;
       if (a[0] < b[0]) return -1;
       if (a[2] < b[2]) return  1;
@@ -85,8 +91,8 @@ Module.register("MMM-Grocy", {
 
   var correctedList ="";
 
-  for(var i = 0; i < recipieList.length; i++){
-    correctedList += `${recipieList[i][2]} - ${recipieList[i][1]}\n`; 
+  for(var i = 0; i < recipeList.length; i++){
+    correctedList += `${recipeList[i][2]} - ${recipeList[i][1]}\n`;
   }
 
     return correctedList;
@@ -106,13 +112,17 @@ Module.register("MMM-Grocy", {
 
  
 
-  async getRecepieInfo(recipe_ID,day, date){
+  async getRecipeInfo(recipe_ID,day, date){
 
-    let recipieName = await fetch(`${this.config.apiLocation}/objects/recipes/${recipe_ID}`, {
-          
+    let recipeName = await fetch(`${this.config.apiLocation}/objects/recipes/${recipe_ID}`, {
+        method: 'GET',
+        headers: {
+            'GROCY-API-KEY': `${this.config.apiKey}`,
+            'Content-Type': 'application/json'
+            }
     }).then( r => r.json() );
  
-      return [date, recipieName.name, day];
+      return [date, recipeName.name, day];
   
   },
 
