@@ -3,7 +3,7 @@ Module.register("MMM-Grocy", {
     apiLocation: "",
     apiKey: "",
     headerName: "Grocy Meal Plan",
-    textColor:"red"
+    textColor: "red"
   },
 
   async start () {
@@ -87,15 +87,26 @@ Module.register("MMM-Grocy", {
       return 0;
   });
 
+    // Group recipes by day to handle days with mire than one recipe
+    const groupedRecipes = recipeList.reduce((acc, [date, name, day]) => {
+        if (!acc[day]) {
+            acc[day] = [];
+        }
+        acc[day].push(name);
+        return acc;
+    }, {});
   
 
-  var correctedList ="";
+    // Format the grouped recipes
+    let formattedList = "";
+    for (const [day, recipes] of Object.entries(groupedRecipes)) {
+        formattedList += `${day} - ${recipes[0]}\n`;
+        for (let i = 1; i < recipes.length; i++) {
+            formattedList += `       ${recipes[i]}\n`;
+        }
+    }
 
-  for(var i = 0; i < recipeList.length; i++){
-    correctedList += `${recipeList[i][2]} - ${recipeList[i][1]}\n`;
-  }
-
-    return correctedList;
+    return formattedList;
   },
 
   async getThePastSunday(){
