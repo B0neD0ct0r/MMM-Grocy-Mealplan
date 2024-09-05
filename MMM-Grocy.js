@@ -7,17 +7,17 @@ Module.register("MMM-Grocy", {
   },
 
   async start () {
-  
+
     this.wrapper = document.createElement("div");
-    this.wrapper.className = "thin medium grey pre-line";
+    this.wrapper.className = "pre-line";
     this.wrapper.style.color = this.config.textColor;
     this.recipe_list = "";
     var txtContainer = document.createElement("div");
     txtContainer.className = "grocy-content";
-    
+
     txtContainer.innerHTML = await this.getGrocyMealPlan();
-    
-    
+
+
     this.wrapper.appendChild(txtContainer);
 
     setInterval(async () => {
@@ -41,10 +41,10 @@ Module.register("MMM-Grocy", {
 
 
   async getGrocyMealPlan () {
-   
-		let recipeList = [];
+
+                let recipeList = [];
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-   
+
 
     let mealPlan = await fetch(`${this.config.apiLocation}/objects/meal_plan`, {
         method: 'GET',
@@ -54,28 +54,28 @@ Module.register("MMM-Grocy", {
         }
     }).then( r => r.json() );
 
-   
+
     var pastSunday = await this.getThePastSunday();
     for(var i = 0; i < mealPlan.length; i++){
-     
+
       var day = new Date(mealPlan[i].day);
-      
+
       day.setDate(day.getDate() +1);
 
-      
-      
+
+
       var endof7Days = new Date(Date.now());
       endof7Days.setDate(pastSunday.getDate() + 7);
-     
+
 
       if (day >= pastSunday && day <= endof7Days){
         recipeList.push(await this.getRecipeInfo(mealPlan[i].recipe_id, days[day.getDay()], mealPlan[i].day));
       }
 
-     
+
     }
 
-  
+
     //we need to spool through recipe list after sort to return what we want
 
 
@@ -95,14 +95,14 @@ Module.register("MMM-Grocy", {
         acc[day].push(name);
         return acc;
     }, {});
-  
+
 
     // Format the grouped recipes
     let formattedList = "";
     for (const [day, recipes] of Object.entries(groupedRecipes)) {
-        formattedList += `${day} - ${recipes[0]}\n`;
-        for (let i = 1; i < recipes.length; i++) {
-            formattedList += `       ${recipes[i]}\n`;
+        formattedList += `<div class="day-header">${day}</div>`;
+        for (let i = 0; i < recipes.length; i++) {
+            formattedList += `<div class="recipe">${recipes[i]}</div>`;
         }
     }
 
@@ -111,7 +111,7 @@ Module.register("MMM-Grocy", {
 
   async getThePastSunday(){
     var today = new Date(Date.now());
-    
+
     today.setDate(today.getDate() - (today.getDay() + 6) % 7);
 
     today.setDate(today.getDate() - 7);
@@ -121,7 +121,7 @@ Module.register("MMM-Grocy", {
     return sunday;
   },
 
- 
+
 
   async getRecipeInfo(recipe_ID,day, date){
 
@@ -132,9 +132,9 @@ Module.register("MMM-Grocy", {
             'Content-Type': 'application/json'
             }
     }).then( r => r.json() );
- 
+
       return [date, recipeName.name, day];
-  
+
   },
 
   getDom () {

@@ -31,7 +31,9 @@ THIS IS A VERY ROUGH FIRST DRAFT. I do apologize, as this is my first module, an
   module: "MMM-Grocy",
   position: "top_left",
   config: {
-    apiLocation:"https://grocy.example.com/api"
+    apiLocation:"https://grocy.example.com/api",
+    apiKey:"YOUR_API_KEY_HERE",
+    headerName:"Weekly Meal Plan"
     textColor:"red"
   }
 },
