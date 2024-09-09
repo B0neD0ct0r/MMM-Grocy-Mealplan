@@ -3,7 +3,9 @@ Module.register("MMM-Grocy", {
     apiLocation: "",
     apiKey: "",
     headerName: "Grocy Meal Plan",
-    textColor: "red"
+    textColor: "red",
+    numOfDays: 7,
+    rollingDays: "yes",
   },
 
   async start () {
@@ -42,11 +44,12 @@ Module.register("MMM-Grocy", {
 
   async getGrocyMealPlan () {
 
-                let recipeList = [];
+    let recipeList = [];
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
+    var today = await this.getToday();
 
-    let mealPlan = await fetch(`${this.config.apiLocation}/objects/meal_plan`, {
+    let mealPlan = await fetch(`${this.config.apiLocation}/objects/meal_plan?query[]=day>=${today}`, {
         method: 'GET',
         headers: {
             'GROCY-API-KEY': `${this.config.apiKey}`,
@@ -60,7 +63,7 @@ Module.register("MMM-Grocy", {
 
       var day = new Date(mealPlan[i].day);
 
-      day.setDate(day.getDate() +1);
+      day.setDate(day.getDate());
 
 
 
@@ -121,7 +124,19 @@ Module.register("MMM-Grocy", {
     return sunday;
   },
 
+  async getToday(){
+    var today = new Date();
 
+    // Extract year, month, and day
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    var day = String(today.getDate()).padStart(2, '0');
+
+    // Format as YYYY-MM-DD
+    var formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  },
 
   async getRecipeInfo(recipe_ID,day, date){
 
